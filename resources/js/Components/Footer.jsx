@@ -98,7 +98,7 @@ const Footer = () => {
                         <div className="space-y-3 relative z-10">
                             {[
                                 { title: "Quick Love", artist: "Reality Club", img: "/assets/RC.jpg" },
-                                { title: "Charlie's Garden", artist: "Djo", img: "/assets/Djo.jpg" },
+                                { title: "Charlie Garden", artist: "Djo", img: "/assets/Djo.jpg" },
                                 { title: "Crush", artist: "Johnny Stimson", img: "/assets/JS.jpg" }
                             ].map((track, i) => (
                                 <motion.div 
