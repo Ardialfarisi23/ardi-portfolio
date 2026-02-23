@@ -542,7 +542,7 @@ export default function Home({ projects }) {
                         >
                             <div className="bg-[#FFD933] w-64 h-64 rounded-[40px] absolute -z-10 top-4 left-4"></div>
                             <img 
-                                src="/foto-ardi.jpeg" 
+                                src="assets/foto-ardi.jpeg" 
                                 alt="Ardi Alfarisi" 
                                 className="w-64 h-64 object-cover rounded-[40px] shadow-lg border-4 border-white"
                             />
