@@ -14,12 +14,13 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-    }
+{
+    \App\Models\Project::create([
+        'title' => 'E-Commerce Website',
+        'short_desc' => 'Membangun toko online dengan React dan Laravel.',
+        'full_desc' => 'Ini adalah proyek besar pertama saya yang menggunakan sistem pembayaran terintegrasi.',
+        'image' => 'project1.jpg',
+        'tech_stack' => 'Laravel, React, Tailwind, MySQL', // Tambahkan data ini
+    ]);
+}
 }
