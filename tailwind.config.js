@@ -1,5 +1,5 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
+import forms from '@tailwindcss/forms'; // Tambahkan import ini
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -9,7 +9,6 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
     ],
-
     theme: {
         extend: {
             fontFamily: {
@@ -17,6 +16,5 @@ export default {
             },
         },
     },
-
-    plugins: [forms],
+    plugins: [forms], // Gunakan variabel forms di sini
 };

@@ -1,9 +1,18 @@
 <?php
 // api/index.php
 
-mkdir('/tmp/storage/framework/views', 0755, true);
-mkdir('/tmp/storage/framework/cache', 0755, true);
-mkdir('/tmp/storage/framework/sessions', 0755, true);
+// Pastikan folder tmp dibuat hanya jika belum ada
+$paths = [
+    '/tmp/storage/framework/views',
+    '/tmp/storage/framework/cache',
+    '/tmp/storage/framework/sessions',
+];
+
+foreach ($paths as $path) {
+    if (!is_dir($path)) {
+        mkdir($path, 0755, true);
+    }
+}
 
 // 1. Panggil autoload dari vendor
 require __DIR__ . '/../vendor/autoload.php';
