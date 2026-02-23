@@ -1,7 +1,6 @@
 <?php
 // api/index.php
 
-// Pastikan folder tmp dibuat hanya jika belum ada
 $paths = [
     '/tmp/storage/framework/views',
     '/tmp/storage/framework/cache',
