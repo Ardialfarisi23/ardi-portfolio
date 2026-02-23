@@ -5,7 +5,7 @@ $paths = [
     '/tmp/storage/framework/views',
     '/tmp/storage/framework/cache',
     '/tmp/storage/framework/sessions',
-    '/tmp/storage/bootstrap/cache', // Tambahkan ini
+    '/tmp/storage/bootstrap/cache',
 ];
 
 foreach ($paths as $path) {
@@ -17,11 +17,11 @@ foreach ($paths as $path) {
 require __DIR__ . '/../vendor/autoload.php';
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
-// --- TAMBAHKAN KODE INI DI SINI ---
-// Memaksa Laravel menggunakan folder /tmp untuk semua cache dan views
+// Cara yang benar untuk memindahkan storage ke /tmp
 $app->useStoragePath('/tmp/storage');
-$app->setCompiledViewPath('/tmp/storage/framework/views');
-// ----------------------------------
+
+// Mengatur path view yang sudah di-compile melalui config
+$app->make('config')->set('view.compiled', '/tmp/storage/framework/views');
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
