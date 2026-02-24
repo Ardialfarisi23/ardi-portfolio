@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Footer = () => {
     const [index, setIndex] = useState(0);
-    const words = ["Creative", "Aesthetic", "Cool"];
+    const words = ["Creative", "Aesthetic", "Interactive"];
 
     useEffect(() => {
         const interval = setInterval(() => {
