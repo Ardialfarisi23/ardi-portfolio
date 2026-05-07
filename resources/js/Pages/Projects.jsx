@@ -26,13 +26,23 @@ const Projects = ({ projects }) => {
     };
 
     return (
-        <MainLayout>
+        <MainLayout showNavbar={false}>
             <Head title="Our Projects | Portfolio" />
             
-            <div className="bg-[#FCFCFD] min-h-screen pt-32 pb-20 px-6">
+            <div className="bg-[#FCFCFD] min-h-screen pt-16 pb-20 px-6">
                 <div className="max-w-6xl mx-auto">
+                    <Link 
+                        href="/" 
+                        className="inline-flex items-center text-gray-400 hover:text-[#0061FF] font-bold text-xs mb-12 tracking-widest transition-all group"
+                    >
+                        <span className="bg-white shadow-sm border border-gray-100 rounded-full p-2 mr-4 group-hover:-translate-x-2 transition-transform">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        </span>
+                        BACK TO PORTFOLIO
+                    </Link>
+
                     {/* Header Section */}
-                    <header className="mb-20 space-y-4">
+                    <header className="mb-16 space-y-4">
                         <motion.div 
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}

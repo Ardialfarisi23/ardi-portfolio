@@ -16,7 +16,7 @@ const AutoCursor = () => (
             left: ["80%", "50%", "30%", "30%", "20%"], 
             top: ["60%", "50%", "45%", "45%", "50%"],
             opacity: [0, 1, 1, 1, 1],
-            scale: [1, 1, 1, 0.8, 1],
+            scale: [1, 1, 1, 0.8, 1]
         }}
         transition={{
             duration: 7,
@@ -542,7 +542,7 @@ export default function Home({ projects }) {
                         >
                             <div className="bg-[#FFD933] w-64 h-64 rounded-[40px] absolute -z-10 top-4 left-4"></div>
                             <img 
-                                src="assets/foto-ardi.jpeg" 
+                                src="assets/foto-ardi.png" 
                                 alt="Ardi Alfarisi" 
                                 className="w-64 h-64 object-cover rounded-[40px] shadow-lg border-4 border-white"
                             />

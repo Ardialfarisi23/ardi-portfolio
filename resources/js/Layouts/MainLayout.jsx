@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Toaster } from 'react-hot-toast';
 
 // MainLayout.jsx
-export default function MainLayout({ children }) {
+export default function MainLayout({ children, showNavbar = true }) {
     const navLinks = [
         { name: 'About', href: '#about' },
         { name: 'Skills', href: '#skills' }, 
@@ -26,34 +26,38 @@ export default function MainLayout({ children }) {
                 />
             </div>
 
-            {/* Navbar Fixed */}
-            <div className="fixed top-0 left-0 right-0 flex justify-center pt-6 z-50 px-4 pointer-events-none">
-                <motion.nav 
-                    initial={{ y: -50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    className="pointer-events-auto bg-white/80 backdrop-blur-md border border-white/50 shadow-xl shadow-blue-900/5 p-1.5 rounded-full flex items-center space-x-1"
-                >
-                    {navLinks.map((link) => (
-                        <a 
-                            key={link.name} 
-                            href={link.href} 
-                            className="relative px-5 md:px-8 py-2.5 group transition-all"
+            {showNavbar && (
+                <>
+                    {/* Navbar Fixed */}
+                    <div className="fixed top-0 left-0 right-0 flex justify-center pt-6 z-50 px-4 pointer-events-none">
+                        <motion.nav 
+                            initial={{ y: -50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            className="pointer-events-auto bg-white/80 backdrop-blur-md border border-white/50 shadow-xl shadow-blue-900/5 p-1.5 rounded-full flex items-center space-x-1"
                         >
-                            <motion.div
-                                className="absolute inset-0 bg-blue-50 rounded-full opacity-0 group-hover:opacity-100 -z-10"
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                            />
-                            <span className="text-blue-600 font-black text-xs md:text-sm tracking-wide group-hover:text-blue-700">
-                                {link.name}
-                            </span>
-                        </a>
-                    ))}
-                </motion.nav>
-            </div>
+                            {navLinks.map((link) => (
+                                <a 
+                                    key={link.name} 
+                                    href={link.href} 
+                                    className="relative px-5 md:px-8 py-2.5 group transition-all"
+                                >
+                                    <motion.div
+                                        className="absolute inset-0 bg-blue-50 rounded-full opacity-0 group-hover:opacity-100 -z-10"
+                                        whileHover={{ scale: 1.05 }}
+                                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                    />
+                                    <span className="text-blue-600 font-black text-xs md:text-sm tracking-wide group-hover:text-blue-700">
+                                        {link.name}
+                                    </span>
+                                </a>
+                            ))}
+                        </motion.nav>
+                    </div>
 
-            {/* Spacer agar konten tidak tertutup navbar */}
-            <div className="h-20"></div> 
+                    {/* Spacer agar konten tidak tertutup navbar */}
+                    <div className="h-20"></div> 
+                </>
+            )}
 
             <main>{children}</main>
         </div>

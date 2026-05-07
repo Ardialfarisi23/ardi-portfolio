@@ -26,12 +26,12 @@ const ProjectDetail = ({ project }) => {
     };
 
     return (
-        <MainLayout>
+        <MainLayout showNavbar={false}>
             <Head title={`${project.title} | Case Study`} />
             
             {/* Progress Bar Premium */}
             <motion.div
-                className="fixed top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#0061FF] to-[#60EFFF] origin-left z-[100] shadow-[0_2px_10px_rgba(0,97,255,0.3)]"
+                className="fixed top-0 left-0 right-0 h-2 bg-gradient-to-r from-[#0061FF] to-[#60EFFF] origin-left z-40 shadow-[0_2px_10px_rgba(0,97,255,0.3)]"
                 style={{ scaleX }}
             />
 
@@ -41,7 +41,7 @@ const ProjectDetail = ({ project }) => {
                 className="bg-[#FCFCFD] min-h-screen pb-20 overflow-hidden"
             >
                 {/* --- 1. HERO SECTION (Redesigned) --- */}
-                <section className="relative pt-32 pb-32 px-6">
+                <section className="relative pt-16 pb-32 px-6">
                     {/* Background Decorative Circles */}
                     <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-blue-50 rounded-full blur-[120px] opacity-60 pointer-events-none" />
                     
