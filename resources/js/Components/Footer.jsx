@@ -66,7 +66,7 @@ const Footer = () => {
                         </div>
                         <div className="flex items-center gap-3">
                             <i className="fas fa-file-alt text-base"></i>
-                            <a href="https://drive.google.com/file/d/1_zytRVxO8_2QLvB2darGX3Jg-OXwWIL2/view?usp=drive_link" className="hover:underline">Curriculum Vitae</a>
+                            <a href="https://drive.google.com/file/d/1_VkrKQlRcrs3Cosw11WCNlDX5Hz5bVVx/view?usp=sharing" className="hover:underline">Curriculum Vitae</a>
                         </div>
                     </div>
 
