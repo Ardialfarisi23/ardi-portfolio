@@ -22,5 +22,13 @@ class DatabaseSeeder extends Seeder
         'image' => 'project1.jpg',
         'tech_stack' => 'Laravel, React, Tailwind, MySQL', // Tambahkan data ini
     ]);
+
+    \App\Models\Project::create([
+        'title' => 'Aplikasi Manajemen Tugas',
+        'short_desc' => 'Aplikasi to-do list dan manajemen proyek tim.',
+        'full_desc' => 'Proyek ini berfokus pada kolaborasi tim secara real-time dengan antarmuka yang interaktif.',
+        'image' => 'project2.jpg',
+        'tech_stack' => 'Laravel, React, Inertia, Tailwind',
+    ]);
 }
 }

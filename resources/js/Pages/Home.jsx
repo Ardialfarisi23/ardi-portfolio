@@ -267,8 +267,59 @@ const TechStackSection = () => {
 };
 
 // --- KOMPONEN 5: ProjectSection ---
-const ProjectSection = () => {
-    const projects = [
+const ProjectSection = ({ projects: projectsFromProps = [] }) => {
+    const techIconMap = {
+        nextjs: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg',
+        typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+        react: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+        tailwindcss: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg',
+        postgresql: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg',
+        tensorflow: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg',
+        laravel: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg',
+        mysql: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+        figma: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
+        html5: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
+        css3: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
+        javascript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+    };
+
+    const normalizeTech = (tech = []) =>
+        tech.map((item) => {
+            if (typeof item === 'string') {
+                const normalizedId = item.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                const aliasMap = {
+                    'next-js': 'nextjs',
+                    'nextjs': 'nextjs',
+                    'typescript': 'typescript',
+                    'react': 'react',
+                    'tailwind-css': 'tailwindcss',
+                    'tailwindcss': 'tailwindcss',
+                    'strapi': 'strapi',
+                    'postgresql': 'postgresql',
+                    'tensorflow-js': 'tensorflow',
+                    'tensorflowjs': 'tensorflow',
+                    'workbox-js': 'workbox',
+                    'workboxjs': 'workbox',
+                    'indexeddb': 'indexeddb',
+                    'vite': 'vite',
+                    'laravel': 'laravel',
+                    'mysql': 'mysql',
+                    'figma': 'figma',
+                    'html5': 'html5',
+                    'css3': 'css3',
+                    'javascript': 'javascript',
+                };
+
+                return {
+                    id: aliasMap[normalizedId] || normalizedId,
+                    label: item,
+                };
+            }
+
+            return item;
+        });
+
+    const defaultProjects = [
         {
             title: "SIM Padepokan Pencak Silat Laskar Panglipur",
             desc: "An integrated digital platform for operational automation and data management of the Padepokan Laskar Panglipur, aligning tradition with modern management efficiency.",
@@ -304,6 +355,11 @@ const ProjectSection = () => {
         }
     ];
 
+    const projects = (projectsFromProps.length ? projectsFromProps : defaultProjects).map((project) => ({
+        ...project,
+        tech: normalizeTech(project.tech || []),
+    }));
+
     return (
         /* Wrapper Biru: Padding bottom dikurangi agar tidak terlalu jauh dengan Contact */
         <div className="bg-[#005ED4] w-full pt-20 pb-10 mt-10">
@@ -334,24 +390,30 @@ const ProjectSection = () => {
                                 </p>
 
                                 <div className="flex flex-wrap gap-3">
-                                    {project.tech.map((t) => (
-                                        <div key={t.id} className="group/tooltip relative flex flex-col items-center">
-                                            <div className="w-9 h-9 flex items-center justify-center bg-white rounded-lg shadow-sm p-2 border border-gray-100 transition-all duration-300 hover:border-blue-400">
-                                                <img 
-                                                    src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${t.id}/${t.id}-original.svg`} 
-                                                    alt={t.label} 
-                                                    className="w-full h-full grayscale group-hover/tooltip:grayscale-0 transition-all cursor-help"
-                                                    onError={(e) => { e.target.src = 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' }}
-                                                />
+                                    {project.tech
+                                        .map((t) => ({
+                                            ...t,
+                                            iconSrc: techIconMap[t.id] || null,
+                                        }))
+                                        .filter((t) => t.iconSrc)
+                                        .map((t) => (
+                                            <div key={t.id} className="group/tooltip relative flex flex-col items-center">
+                                                <div className="w-9 h-9 flex items-center justify-center bg-white rounded-lg shadow-sm p-2 border border-gray-100 transition-all duration-300 hover:border-blue-400">
+                                                    <img 
+                                                        src={t.iconSrc} 
+                                                        alt={t.label} 
+                                                        className="w-full h-full grayscale group-hover/tooltip:grayscale-0 transition-all cursor-help"
+                                                        onError={(e) => { e.target.src = techIconMap.figma }}
+                                                    />
+                                                </div>
+                                                <div className="absolute bottom-full mb-2 flex flex-col items-center hidden group-hover/tooltip:flex animate-in fade-in zoom-in duration-200">
+                                                    <span className="relative z-10 p-2 text-[10px] font-bold leading-none text-white whitespace-nowrap bg-gray-900 rounded-md shadow-lg">
+                                                        {t.label}
+                                                    </span>
+                                                    <div className="w-2 h-2 -mt-1 rotate-45 bg-gray-900"></div>
+                                                </div>
                                             </div>
-                                            <div className="absolute bottom-full mb-2 flex flex-col items-center hidden group-hover/tooltip:flex animate-in fade-in zoom-in duration-200">
-                                                <span className="relative z-10 p-2 text-[10px] font-bold leading-none text-white whitespace-nowrap bg-gray-900 rounded-md shadow-lg">
-                                                    {t.label}
-                                                </span>
-                                                <div className="w-2 h-2 -mt-1 rotate-45 bg-gray-900"></div>
-                                            </div>
-                                        </div>
-                                    ))}
+                                        ))}
                                 </div>
 
                                 <Link
