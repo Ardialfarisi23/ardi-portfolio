@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Footer = () => {
     const [index, setIndex] = useState(0);
     const [activeTrack, setActiveTrack] = useState(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = useRef(null);
     const words = ["Creative", "Aesthetic", "Interactive"];
 
     useEffect(() => {
@@ -32,36 +30,18 @@ const Footer = () => {
 ];
 
     const tracks = [
-        { title: 'Quick Love', artist: 'Reality Club', img: '/assets/RC.jpg', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
-        { title: 'Free Love', artist: 'HONNE', img: '/assets/honne.jpg', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-        { title: 'Crush', artist: 'Johnny Stimson', img: '/assets/JS.jpg', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' }
+        { title: 'Quick Love', artist: 'Reality Club', img: '/assets/RC.jpg', embedUrl: 'https://open.spotify.com/embed/track/1uVzX5mp8zTj5gYaZGX6Lo?utm_source=generator' },
+        { title: 'Free Love', artist: 'HONNE', img: '/assets/honne.jpg', embedUrl: 'https://open.spotify.com/embed/track/0GPJSHYaXh8rZSSJoUMgyl?utm_source=generator' },
+        { title: 'Crush', artist: 'Johnny Stimson', img: '/assets/JS.jpg', embedUrl: 'https://open.spotify.com/embed/track/7w93WrvlfeUQk8bwRBX14O?utm_source=generator' }
     ];
-
-    useEffect(() => {
-        if (!activeTrack) {
-            setActiveTrack(tracks[0]);
-        }
-    }, [activeTrack]);
 
     // Fungsi UX: Scroll ke atas dengan halus
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const handleTrackSelect = async (track) => {
-        if (!audioRef.current) return;
-
+    const handleTrackSelect = (track) => {
         setActiveTrack(track);
-        setIsPlaying(true);
-
-        try {
-            audioRef.current.pause();
-            audioRef.current.src = track.audioUrl;
-            audioRef.current.load();
-            await audioRef.current.play();
-        } catch (error) {
-            setIsPlaying(false);
-        }
     };
 
     return (
@@ -126,7 +106,7 @@ const Footer = () => {
                             </motion.div>
                         </div>
 
-                        <div className="space-y-2 relative z-10">
+                        <div className="space-y-3 relative z-10">
                             {tracks.map((track, i) => {
                                 const isCurrent = activeTrack?.title === track.title;
 
@@ -134,67 +114,36 @@ const Footer = () => {
                                     <motion.button
                                         key={i}
                                         type="button"
-                                        whileHover={{ x: 4, backgroundColor: 'rgba(255,255,255,0.1)' }}
+                                        whileHover={{ x: 6, backgroundColor: 'rgba(255,255,255,0.05)' }}
                                         onClick={() => handleTrackSelect(track)}
-                                        className={`w-full flex items-center gap-3 p-2 rounded-xl transition-all text-left ${isCurrent ? 'bg-white/15 shadow-inner' : 'bg-transparent'}`}
+                                        className="w-full flex items-center gap-3 p-1 rounded-lg transition-colors text-left"
                                     >
-                                        <div className="w-11 h-11 rounded-xl overflow-hidden bg-blue-400 shadow-sm relative ring-1 ring-white/15">
+                                        <div className="w-10 h-10 rounded-md overflow-hidden bg-blue-400 shadow-sm relative">
                                             <img src={track.img} alt={track.title} className="w-full h-full object-cover" />
                                         </div>
                                         <div className="flex-1 text-[10px]">
                                             <p className="font-black leading-tight">{track.title}</p>
                                             <p className="opacity-60 font-bold text-[9px]">{track.artist}</p>
                                         </div>
-                                        <span className={`text-[8px] font-black uppercase tracking-[0.2em] px-2 py-1 rounded-full ${isCurrent ? 'bg-white text-[#0061FF]' : 'bg-white/15 text-white'}`}>
-                                            {isCurrent ? 'Now' : 'Play'}
+                                        <span className="text-[9px] font-black uppercase tracking-[0.2em] opacity-70">
+                                            {isCurrent ? 'Playing' : 'Play'}
                                         </span>
                                     </motion.button>
                                 );
                             })}
                         </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="mt-4 rounded-[20px] border border-white/15 bg-white/10 p-4 backdrop-blur-sm shadow-[0_8px_30px_rgba(0,0,0,0.18)]"
-                        >
-                            <div className="flex items-center justify-between mb-3">
-                                <p className="text-[9px] font-black uppercase tracking-[0.25em] opacity-70">Now Playing</p>
-                                <span className="text-[8px] font-bold uppercase tracking-[0.25em] bg-white/15 px-2 py-1 rounded-full">In Site</span>
+                        {activeTrack && (
+                            <div className="mt-4 rounded-2xl overflow-hidden border border-white/10 bg-black/20">
+                                <iframe
+                                    src={activeTrack.embedUrl}
+                                    title={`${activeTrack.title} by ${activeTrack.artist}`}
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                                    loading="lazy"
+                                    className="w-full h-24 rounded-2xl"
+                                />
                             </div>
-
-                            <div className="flex items-center gap-3">
-                                <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-lg ring-1 ring-white/20">
-                                    <img src={activeTrack?.img || tracks[0].img} alt={activeTrack?.title || tracks[0].title} className="w-full h-full object-cover" />
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                    <p className="text-sm font-black leading-tight truncate">{activeTrack?.title || tracks[0].title}</p>
-                                    <p className="text-[11px] opacity-70 font-semibold truncate">{activeTrack?.artist || tracks[0].artist}</p>
-                                </div>
-                            </div>
-
-                            <div className="mt-3 flex items-center gap-1 overflow-hidden rounded-full bg-white/15 p-1">
-                                {[0.35, 0.7, 0.45, 0.8, 0.6, 0.9].map((width, index) => (
-                                    <div key={index} className="h-2 flex-1 rounded-full bg-gradient-to-r from-white/70 to-blue-200/80" style={{ width: `${width * 100}%` }} />
-                                ))}
-                            </div>
-
-                            <div className="mt-4 flex items-center justify-between gap-2">
-                                <button
-                                    type="button"
-                                    onClick={() => handleTrackSelect(activeTrack || tracks[0])}
-                                    className="flex-1 rounded-full bg-white px-3 py-2 text-[10px] font-black text-[#0061FF] shadow-sm transition-transform hover:scale-[1.02]"
-                                >
-                                    {isPlaying ? 'Playing' : 'Play Now'}
-                                </button>
-                                <div className="rounded-full border border-white/20 px-3 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-white/90">
-                                    {isPlaying ? 'Live' : 'Ready'}
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        <audio ref={audioRef} preload="auto" />
+                        )}
                         
                         <div className="mt-6 pt-3 border-t border-white/10 flex justify-between items-center">
                             <p className="text-[8px] font-bold opacity-50">Curated Playlist</p>
