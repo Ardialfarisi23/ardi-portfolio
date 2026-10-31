@@ -9,6 +9,13 @@ use App\Http\Controllers\ContactController;
 
 $projectCatalog = [
     [
+        'title' => 'Digitak Internal Warehouse',
+        'desc' => 'A centralized web application for telecommunications material warehouse operations, featuring automated stock ledger, cluster-based BOQ, multi-level approvals, reconciliation, and RBAC.',
+        'image' => '/assets/digitak%201.jpg',
+        'link' => '/projects/digitak-internal-warehouse',
+        'tech' => ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Express.js', 'Prisma', 'PostgreSQL']
+    ],
+    [
         'title' => 'SIM Padepokan Pencak Silat Laskar Panglipur',
         'desc' => 'SIM Laskar Panglipur is a modern Management Information System that digitizes the administration of pencak silat organizations...',
         'image' => '/assets/project-sim.jpg',
@@ -42,10 +49,9 @@ $projectCatalog = [
         'image' => '/assets/project-iot.jpg',
         'link' => '/projects/iot-hydroponic',
         'tech' => ['Figma']
-    ],
+        ],
 ];
 
-// 1. Route Home (Menggunakan data statis agar aman tanpa database dulu)
 Route::get('/', function () use ($projectCatalog) {
     $featuredProjects = array_slice($projectCatalog, 0, 3);
 
@@ -60,6 +66,18 @@ Route::post('/contact-send', [ContactController::class, 'send'])->name('contact.
 // 3. Route Detail Project (Data Statis)
 Route::get('/projects/{slug}', function ($slug) {
     $allProjects = [
+        'digitak-internal-warehouse' => [
+            'title' => 'Digitak Internal Warehouse',
+            'desc' => 'A centralized web application for telecommunications material warehouse operations, featuring automated stock ledger, cluster-based BOQ, multi-level approvals, reconciliation, and RBAC.',
+            'tech' => ['nextjs', 'react', 'typescript', 'tailwindcss', 'nodejs', 'expressjs', 'prisma', 'postgresql'],
+            'image' => '/assets/digitak%201.jpg',
+            'role' => 'Project Manager + Fullstack Developer',
+            'platform' => 'Web Application',
+            'live_url' => 'https://github.com/Ardialfarisi23/Digitak-Warehouse.git',
+            'challenge' => 'Telecommunications material warehouse operations are still manual, leading to issues such as a high risk of recording errors in stock, difficulty in comparing the Bill of Quantities (BOQ) against actual usage, unstructured approval processes, manual field reconciliation, and a lack of role-based access control.',
+            'solution' => 'A centralized web application (Next.js + Express.js + PostgreSQL) featuring an automated stock ledger, a cluster-based Bill of Quantities (BOQ) module, a multi-level approval process with audit logs, reconciliation via Excel file uploads, and Role-Based Access Control (RBAC) with three distinct roles (Admin, Supervisor, and Warehouse Staff).',
+            'gallery' => ['/assets/digitak%202.jpg', '/assets/digitak%203.jpg']
+        ],
         'sim-padepokan' => [
             'title' => 'SIM Padepokan Pencak Silat Laskar Panglipur',
             'desc' => 'SIM Laskar Panglipur is a modern Management Information System...',
@@ -122,7 +140,7 @@ Route::get('/projects/{slug}', function ($slug) {
         ],
     ];
 
-    if (!array_key_exists($slug, $allProjects)) {
+    if (!isset($allProjects[$slug])) {
         abort(404);
     }
 
